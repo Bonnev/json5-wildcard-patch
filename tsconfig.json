@@ -5,14 +5,10 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
-		"jsx": "react-jsx",
 		"baseUrl": "./src",
 		"paths": {
 			"*": [ "./definitions/*" ]
-		}
-	},
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx",
-	]
+		},
+		"sourceMap": true
+	}
 }
