@@ -1,14 +1,13 @@
 {
 	"compilerOptions": {
-		"target": "es2021",
+		"target": "ES6",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"baseUrl": "./src",
-		"paths": {
-			"*": [ "./definitions/*" ]
-		},
-		"sourceMap": true
+		"outDir": "./dist",
+		"sourceMap": true,
+		"module": "UMD"
 	}
 }

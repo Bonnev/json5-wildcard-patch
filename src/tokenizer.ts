@@ -32,6 +32,7 @@ class Tokenizer {
 			this.handleError('Expected \'/\' at start');
 			return [];
 		}
+		this.currentIndex++;
 
 		while(!this.atEnd()) {
 			const character = this.text[this.currentIndex];
