@@ -1,7 +1,7 @@
 enum TokenType {
-	SLASH,
-	IDENTIFIER,
-	ANY
+	SLASH = 'SLASH',
+	IDENTIFIER = 'IDENTIFIER',
+	ANY = 'ANY'
 }
 
 export class Token {
@@ -28,7 +28,7 @@ class Tokenizer {
 		const tokens: Token[] = [];
 		this.currentIndex = 0;
 
-		if (this.text[this.currentIndex] === '/') {
+		if (this.text[this.currentIndex] !== '/') {
 			this.handleError('Expected \'/\' at start');
 			return [];
 		}
@@ -59,7 +59,7 @@ class Tokenizer {
 	}
 
 	isIdentifier(character: string): boolean {
-		return /a-zA-Z0-9_/.test(character);
+		return /[a-zA-Z0-9_]/g.test(character);
 	}
 
 	consumeIdentifier() {
@@ -69,6 +69,7 @@ class Tokenizer {
 			id += this.text[this.currentIndex];
 			this.currentIndex++;
 		}
+		this.currentIndex--;
 
 		return id;
 	}

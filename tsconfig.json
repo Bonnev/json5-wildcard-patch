@@ -1,13 +1,10 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
+		"target": "es5",
+		"module": "commonjs",
 		"strict": true,
-		"baseUrl": "./src",
-		"outDir": "./dist",
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "dist",
 		"sourceMap": true,
-		"module": "UMD"
 	}
 }
