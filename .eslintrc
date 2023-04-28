@@ -12,9 +12,6 @@
 		"ecmaVersion": 2021,
 		"sourceType": "module"
 	},
-	"globals": {
-		"Neutralino": "readonly"
-	},
 	"rules": {
 		"indent": [
 			"warn",
