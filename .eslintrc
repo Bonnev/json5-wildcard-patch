@@ -33,9 +33,6 @@
 			"warn"
 		],
 		"no-use-before-define": "error",
-		"no-unused-vars": [
-			"warn"
-		],
 		"no-debugger": [
 			"warn"
 		],
@@ -52,6 +49,7 @@
 		"no-var": "warn",
 		"comma-spacing": "warn",
 		"no-restricted-globals": ["warn", "window"],
-		"@typescript-eslint/triple-slash-reference": 0
+		"@typescript-eslint/triple-slash-reference": 0,
+		"@typescript-eslint/no-unused-vars": 1
 	}
 }

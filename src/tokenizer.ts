@@ -1,27 +1,20 @@
 export enum TokenType {
 	SLASH = 'SLASH',
 	IDENTIFIER = 'IDENTIFIER',
-	ANY = 'ANY'
+	ANY = 'ANY',
+	END = 'END',
 }
 
 export class Token {
-	type: TokenType;
-	value: string | undefined;
-
-	constructor(type: TokenType, value: string | undefined) {
-		this.type = type;
-		this.value = value;
-	}
+	constructor(public column: number, public type: TokenType, public value: string | null) { }
 }
 
 class Tokenizer {
 	private currentIndex: number;
-
 	private errors: string[] = [];
 
 	constructor(private text: string) {
 		this.currentIndex = 0;
-		this.text = text;
 	}
 
 	tokenize(): Token[] {
@@ -32,7 +25,7 @@ class Tokenizer {
 			this.handleError('Expected \'/\' at start');
 			return [];
 		}
-		tokens.push(new Token(TokenType.SLASH, undefined));
+		tokens.push(new Token(this.currentIndex, TokenType.SLASH, null));
 		this.currentIndex++;
 
 		while(!this.atEnd()) {
@@ -40,21 +33,22 @@ class Tokenizer {
 
 			switch(character) {
 			case '/':
-				tokens.push(new Token(TokenType.SLASH, undefined));
+				tokens.push(new Token(this.currentIndex, TokenType.SLASH, null));
 				break;
 			case '*':
-				tokens.push(new Token(TokenType.ANY, undefined));
+				tokens.push(new Token(this.currentIndex, TokenType.ANY, null));
 				break;
 			default:
 				if (this.isIdentifier(character)) {
 					const id = this.consumeIdentifier();
-					tokens.push(new Token(TokenType.IDENTIFIER, id));
+					tokens.push(new Token(this.currentIndex, TokenType.IDENTIFIER, id));
 				}
 				break;
 			}
 
 			this.currentIndex++;
 		}
+		tokens.push(new Token(this.currentIndex, TokenType.END, null));
 
 		return tokens;
 	}
