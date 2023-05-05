@@ -1,0 +1,55 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"env": {
+		"es2021": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2021,
+		"sourceType": "module"
+	},
+	"rules": {
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"warn",
+			"always"
+		],
+		"no-trailing-spaces": [
+			"warn"
+		],
+		"no-use-before-define": "error",
+		"no-debugger": [
+			"warn"
+		],
+		"no-console": [
+			"warn"
+		],
+		"object-curly-spacing": [
+			"warn", "always"
+		],
+		"array-bracket-spacing": [
+			"warn"
+		],
+		"space-infix-ops": "warn",
+		"no-var": "warn",
+		"comma-spacing": "warn",
+		"no-restricted-globals": ["warn", "window"],
+		"@typescript-eslint/triple-slash-reference": 0,
+		"@typescript-eslint/no-unused-vars": 1
+	}
+}
