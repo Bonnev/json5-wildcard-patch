@@ -20,6 +20,8 @@ class Parser {
 	}
 
 	parse(): Navigation {
+		const operations: Operation[] = [];
+
 		for (let index = 0; index < this.tokens.length; index++) {
 			const token = this.tokens[index];
 			const nextToken = this.tokens[index + 1];
@@ -30,10 +32,10 @@ class Parser {
 					this.handleError(nextToken.column, 'Expected an identifier or a wildcard');
 				}
 
-				if (token.type === TokenType.IDENTIFIER) {
-					return new Operation(OperationType.SimpleNavigation, null);
+				if (nextToken.type === TokenType.IDENTIFIER) {
+					operations.push(new Operation(OperationType.SimpleNavigation, token.value));
 				} else {
-					return new Operation(OperationType.WildcardNavigation, null);
+					operations.push(new Operation(OperationType.WildcardNavigation, null));
 				}
 			}
 		}
