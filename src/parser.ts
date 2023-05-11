@@ -6,8 +6,26 @@ export enum OperationType {
 	END = 'END',
 }
 
-export class Operation {
-	constructor(public type: OperationType, public value: string | null) { }
+export class Location {
+	constructor(public data: object | Array<unknown>, public key: string) { }
+}
+
+export interface Navigation {
+	navigate(previous: Location[]): Location[];
+}
+
+export class SimpleNavigation implements Navigation {
+	constructor(public : ) { }
+
+	navigate(previous: Location[]): Location[] {
+		return previous.map((location: Location) => {
+			return new Location(location.data
+		}).flat();
+	}
+}
+
+export class WildcardNavigation implements Navigation {
+
 }
 
 class Parser {
