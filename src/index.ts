@@ -4,7 +4,7 @@ import tokenize from './tokenizer';
 const tokens = tokenize('/marti/*/karti');
 const navigations = parse(tokens);
 
-let locations = navigations[0].navigate([new Location({
+const initialLocations = [new Location({
 	root: {
 		marti: {
 			name: {
@@ -19,9 +19,13 @@ let locations = navigations[0].navigate([new Location({
 		},
 		test: 'mest'
 	}
-}, 'root')]);
+}, 'root')];
+
+const locations = navigations.reduce((accLocations, current) => current.navigate(accLocations), initialLocations);
+
+/*let locations = navigations[0].navigate();
 
 locations = navigations[1].navigate(locations);
-locations = navigations[2].navigate(locations);
+locations = navigations[2].navigate(locations);*/
 
 console.log(JSON.stringify(locations, null, 2));
