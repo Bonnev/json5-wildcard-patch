@@ -1,3 +1,4 @@
-import tokenize from './src/tokenizer';
+import parse from './parser';
+import tokenize from './tokenizer';
 
-console.log(tokenize('/marti/*/karti'));
+console.log(JSON.stringify(parse(tokenize('/marti/*/karti'))));
