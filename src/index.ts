@@ -23,9 +23,5 @@ const initialLocations = [new Location({
 
 const locations = navigations.reduce((accLocations, current) => current.navigate(accLocations), initialLocations);
 
-/*let locations = navigations[0].navigate();
-
-locations = navigations[1].navigate(locations);
-locations = navigations[2].navigate(locations);*/
-
+console.log(process.argv[2])
 console.log(JSON.stringify(locations, null, 2));
