@@ -1,6 +1,6 @@
 import { Token, TokenType } from './tokenizer';
 
-export type ArrayOrObject = { [n: number | string]: ArrayOrObject } | string | number
+export type ArrayOrObject = { [n: string]: ArrayOrObject } | ArrayOrObject[] | string | number
 
 export class Location {
 	constructor(public data: ArrayOrObject, public key: number | string) { }

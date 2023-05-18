@@ -1,20 +1,29 @@
-import parse, { Location, Navigation } from './parser';
+import parse, { Location } from './parser';
 import { AddPatcher } from './patcher';
 import tokenize from './tokenizer';
 
-const tokens = tokenize('/marti/*');
+const tokens = tokenize('/marti/*/karti/*');
 const navigations = parse(tokens);
 
 const data = {
 	marti: {
 		name: {
-			karti: 3
+			karti: [
+				{ },
+				{ }
+			]
 		},
 		age: {
-			karti: 5
+			karti: [
+				{ },
+				{ }
+			]
 		},
 		koala: {
-			karti: 10
+			karti: [
+				{ },
+				{ }
+			]
 		}
 	},
 	test: 'mest'
