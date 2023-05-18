@@ -1,13 +1,6 @@
 import { Token, TokenType } from './tokenizer';
 
-export enum OperationType {
-	SimpleNavigation = 'SimpleNavigation',
-	WildcardNavigation = 'WildcardNavigation',
-	END = 'END',
-}
-
-type ArrayOrObject = { [n: number | string]: ArrayOrObject } | string | number
-
+export type ArrayOrObject = { [n: number | string]: ArrayOrObject } | string | number
 
 export class Location {
 	constructor(public data: ArrayOrObject, public key: number | string) { }
@@ -18,7 +11,7 @@ export interface Navigation {
 }
 
 export class SimpleNavigation implements Navigation {
-	constructor(public value: string) { }
+	constructor(private value: string) { }
 
 	navigate(previous: Location[]): Location[] {
 		const result: Location[] = [];

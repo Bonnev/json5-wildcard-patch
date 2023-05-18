@@ -1,27 +1,31 @@
 import parse, { Location, Navigation } from './parser';
+import { AddPatcher } from './patcher';
 import tokenize from './tokenizer';
 
-const tokens = tokenize('/marti/*/karti');
+const tokens = tokenize('/marti/*');
 const navigations = parse(tokens);
 
-const initialLocations = [new Location({
-	root: {
-		marti: {
-			name: {
-				karti: 3
-			},
-			age: {
-				karti: 5
-			},
-			koala: {
-				karti: 10
-			}
+const data = {
+	marti: {
+		name: {
+			karti: 3
 		},
-		test: 'mest'
-	}
-}, 'root')];
+		age: {
+			karti: 5
+		},
+		koala: {
+			karti: 10
+		}
+	},
+	test: 'mest'
+};
+
+const initialLocations = [new Location({ root: data }, 'root')];
 
 const locations = navigations.reduce((accLocations, current) => current.navigate(accLocations), initialLocations);
 
-console.log(process.argv[2])
-console.log(JSON.stringify(locations, null, 2));
+
+
+new AddPatcher({ test: 3 }).patch(locations);
+
+console.log(JSON.stringify(data, null, 2));
