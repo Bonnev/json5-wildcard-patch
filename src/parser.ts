@@ -2,6 +2,33 @@ import { Token, TokenType } from './tokenizer';
 
 export type ArrayOrObject = { [n: string]: ArrayOrObject } | ArrayOrObject[] | string | number
 
+export const getArrayOrObject = (
+	data: { [n: string]: ArrayOrObject; } | ArrayOrObject[],
+	key: string | number): ArrayOrObject => {
+
+	if (data instanceof Array && typeof key === 'number') {
+		return data[key];
+	} else if (!(data instanceof Array)) {
+		return data[key];
+	}
+
+	return [];
+};
+
+export const setArrayOrObject = (
+	data: { [n: string]: ArrayOrObject; } | ArrayOrObject[],
+	key: string | number,
+	value: ArrayOrObject): ArrayOrObject => {
+
+	if (data instanceof Array && typeof key === 'number') {
+		return data[key] = value;
+	} else if (!(data instanceof Array)) {
+		return data[key] = value;
+	}
+
+	return [];
+};
+
 export class Location {
 	constructor(public data: ArrayOrObject, public key: number | string) { }
 }
@@ -24,7 +51,7 @@ export class SimpleNavigation implements Navigation {
 				result.push(new Location(location.data[location.key], this.value));
 			}
 
-			if (location.data instanceof Object) {
+			if (location.data instanceof Object && !(location.data instanceof Array)) {
 				result.push(new Location(location.data[location.key], this.value));
 			}
 		});
@@ -41,7 +68,7 @@ export class WildcardNavigation implements Navigation {
 			previous := [ { data: </>, key: 'marty' } ]
 		*/
 		previous.forEach((location: Location) => {
-			if (location.data instanceof Object && !(location.data[location.key] instanceof Object) ||
+			if (location.data instanceof Object && !(location.data instanceof Array) && !(location.data[location.key] instanceof Object) ||
 					location.data instanceof Array && typeof location.key == 'number' && !(location.data[location.key] instanceof Array) ||
 					!(location.data instanceof Object))
 				return;
@@ -51,13 +78,15 @@ export class WildcardNavigation implements Navigation {
 				location.data := </>
 				location.data[location.key] := </marty>
 			*/
-			if (location.data instanceof Object && location.data[location.key] instanceof Object || location.data instanceof Array && typeof location.key === 'number') {
-				Object.keys(location.data[location.key]).forEach((key: string) => {
+
+			if (location.data instanceof Object && !(location.data instanceof Array) && location.data[location.key] instanceof Object ||
+					location.data instanceof Array && typeof location.key === 'number') {
+				Object.keys(getArrayOrObject(location.data, location.key)).forEach((key: string) => {
 					if (location.data instanceof Array && typeof location.key === 'number') {
 						result.push(new Location(location.data[location.key], key));
 					}
 
-					if (location.data instanceof Object) {
+					if (location.data instanceof Object && !(location.data instanceof Array)) {
 						result.push(new Location(location.data[location.key], key));
 					}
 				});
