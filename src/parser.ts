@@ -1,19 +1,22 @@
+import logger from './logger';
 import { Token, TokenType } from './tokenizer';
 
 export type ArrayOrObject = { [n: string]: ArrayOrObject } | ArrayOrObject[] | string | number
 
-export const getArrayOrObject = (
+export function getArrayOrObject(
 	data: { [n: string]: ArrayOrObject; } | ArrayOrObject[],
-	key: string | number): ArrayOrObject => {
+	key: string | number): ArrayOrObject {
 
-	if (data instanceof Array && typeof key === 'number') {
-		return data[key];
+	if (data instanceof Array && !isNaN(+key)) {
+		return data[+key];
 	} else if (!(data instanceof Array)) {
 		return data[key];
+	} else {
+		logger.warn('INFO', `Cannot access key ${key} from data ${data}`);
 	}
 
 	return [];
-};
+}
 
 export const setArrayOrObject = (
 	data: { [n: string]: ArrayOrObject; } | ArrayOrObject[],
@@ -109,7 +112,13 @@ class Parser {
 	parse(): Navigation[] {
 		const navigations: Navigation[] = [];
 
-		for (let index = 0; index < this.tokens.length; index++) {
+		const startToken = this.tokens[0];
+		if (startToken.type !== TokenType.START) {
+			this.handleError(0, 'Expected START token at the start');
+			return [];
+		}
+
+		for (let index = 1; index < this.tokens.length; index++) {
 			const token = this.tokens[index];
 
 			switch (token.type) {

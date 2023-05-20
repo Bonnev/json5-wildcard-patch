@@ -11,8 +11,8 @@ export class AddPatcher implements Patcher {
 		const hadChangesObj = { hasChanges: false };
 
 		locations.forEach(location => {
-			if (location.data instanceof Object && !(location.data instanceof Array) && typeof location.data[location.key] !== 'undefined' ||
-					location.data instanceof Array && typeof location.key === 'number' && typeof location.data[location.key] !== 'undefined') {
+			if ((location.data instanceof Object && !(location.data instanceof Array) && typeof getArrayOrObject(location.data, location.key) !== 'undefined') ||
+					location.data instanceof Array && typeof getArrayOrObject(location.data, location.key) !== 'undefined') {
 				const data = getArrayOrObject(location.data, location.key);
 				if (data instanceof Object) {
 					for (const key in this.obj) {

@@ -74,7 +74,7 @@ class Tokenizer {
 	}
 
 	atEnd() {
-		return this.currentIndex === this.text.length - 1;
+		return this.currentIndex === this.text.length;
 	}
 }
 
