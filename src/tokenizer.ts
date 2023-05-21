@@ -1,4 +1,5 @@
 export enum TokenType {
+	START = 'START',
 	SLASH = 'SLASH',
 	IDENTIFIER = 'IDENTIFIER',
 	ANY = 'ANY',
@@ -25,7 +26,7 @@ class Tokenizer {
 			this.handleError('Expected \'/\' at start');
 			return [];
 		}
-		tokens.push(new Token(this.currentIndex, TokenType.SLASH, null));
+		tokens.push(new Token(this.currentIndex, TokenType.START, null));
 		this.currentIndex++;
 
 		while(!this.atEnd()) {
